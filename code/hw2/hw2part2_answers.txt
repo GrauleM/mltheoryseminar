@@ -1,0 +1,9 @@
+1. it's working. intuition behind it: the adversary chose a targeted attack through PGD that is very effective at disturbing the classifier, but not very robust.
+
+PGD finds an optimal disturbance (constrained to 'budget for disturbance' epsilon ) for the given image, likely by disturbing brittle, non-robust features in the image given the model
+ - this optimization allows for effective attacks with very small disturbances - hence these attacks can be impossible to detect for humans. There are however other more robust features in the image as well. If our defense is of at least comparable magnitude to the l-inf magnitude of the attack, we destroy the effectiveness of the attack, and instead end up with an image that is more or less disturbed by random noise. as long as this random noise is not too large, the closest class will still be the original class.
+
+ Or rephrased a bit more elegantly: PGD finds optimal attack, which means that this attack disturbs the image in a way that is (close to) normal to the decision boundary between predicted class / adversarial target class. adding random noise to the image after the attack makes this much less effective.
+
+ the plot supports this hypothesis, as the adversary becomes less effective around where (mean()=eps for z from random normal(0,sig))
+
